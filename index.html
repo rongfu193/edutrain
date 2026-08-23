@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>數位教學研習資訊 | 榮富國民小學</title>
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;600&display=swap" rel="stylesheet">
+<!-- FontAwesome Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+/* --- 日式清新配色系統 (Japanese Fresh Color Palette) --- */
+:root {
+  --bg-main: #fdfbf7;         /* 暖和紙色 */
+  --bg-card: #ffffff;         /* 純白卡片 */
+  --bg-sub: #f5f2eb;          /* 淺木質色 */
+  --border-color: #eae5dc;    /* 細緻邊框色 */
+  --text-main: #363331;       /* 深木炭灰色（比純黑更溫和） */
+  --text-sub: #78726d;        /* 亞麻灰 */
+  --text-light: #a39d96;      /* 淺灰色 */
+  
+  --accent-green: #7c8d7c;    /* 抹茶/竹青色 */
+  --accent-green-light: #f0f3f0;
+  --accent-hover: #637363;
+  
+  --accent-warm: #d99b82;     /* 珊瑚赤陶色（用於微提醒） */
+  --accent-warm-light: #fdf6f3;
+
+  --shadow-soft: 0 8px 30px rgba(160, 150, 140, 0.06);
+  --shadow-hover: 0 14px 35px rgba(140, 130, 120, 0.12);
+  --radius-card: 20px;
+  --radius-item: 12px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  line-height: 1.8;
+  letter-spacing: 0.03em;
+  padding-bottom: 80px;
+}
+
+/* Background Subtle Gradient Header Accent */
+.top-decorative-bar {
+  height: 6px;
+  background: linear-gradient(90deg, #7c8d7c 0%, #b3c2b3 50%, #d99b82 100%);
+}
+
+.container {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* --- 頁首 Header --- */
+header {
+  padding: 60px 0 35px;
+  text-align: center;
+}
+
+.header-tag {
+  display: inline-block;
+  padding: 4px 16px;
+  background-color: var(--accent-green-light);
+  color: var(--accent-green);
+  border-radius: 30px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-bottom: 16px;
+  letter-spacing: 0.08em;
+}
+
+header h1 {
+  font-family: 'Noto Serif TC', serif;
+  font-size: clamp(1.75rem, 3.5vw, 2.25rem);
+  font-weight: 600;
+  color: var(--text-main);
+  margin-bottom: 12px;
+  letter-spacing: 0.05em;
+}
+
+header p {
+  color: var(--text-sub);
+  font-size: 0.95rem;
+  font-weight: 300;
+}
+
+/* --- 導覽標籤 Quick Nav --- */
+.nav-pills {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+
+.nav-pill {
+  color: var(--text-sub);
+  text-decoration: none;
+  font-size: 0.875rem;
+  padding: 8px 18px;
+  border-radius: 30px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+}
+
+.nav-pill:hover {
+  color: var(--accent-green);
+  border-color: var(--accent-green);
+  background: var(--accent-green-light);
+  transform: translateY(-2px);
+}
+
+/* --- 卡片元件 Card --- */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-card);
+  padding: 40px;
+  margin-bottom: 30px;
+  box-shadow: var(--shadow-soft);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.card:hover {
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-2px);
+}
+
+.card-title-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px dashed var(--border-color);
+}
+
+.card-title-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: var(--accent-green-light);
+  color: var(--accent-green);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+}
+
+.card-title {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+/* --- 課程列表項目 List Items --- */
+.course-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.course-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  background: var(--bg-sub);
+  border-radius: var(--radius-item);
+  text-decoration: none;
+  color: var(--text-main);
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
+}
+
+.course-item:hover {
+  background: var(--bg-card);
+  border-color: var(--accent-green);
+  transform: translateX(4px);
+  box-shadow: 0 4px 15px rgba(124, 141, 124, 0.08);
+}
+
+.course-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.course-badge {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  color: var(--accent-green);
+  font-size: 0.8rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border-color);
+}
+
+.course-name {
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.course-arrow {
+  color: var(--text-light);
+  font-size: 0.85rem;
+  transition: all 0.3s ease;
+}
+
+.course-item:hover .course-arrow {
+  color: var(--accent-green);
+  transform: translateX(3px);
+}
+
+/* --- 提示區塊 Notice Boxes --- */
+.info-box {
+  margin-top: 24px;
+  padding: 20px 24px;
+  border-radius: var(--radius-item);
+  background-color: var(--accent-green-light);
+  border-left: 3px solid var(--accent-green);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.info-box-warm {
+  background-color: var(--accent-warm-light);
+  border-left-color: var(--accent-warm);
+}
+
+.info-text {
+  font-size: 0.9rem;
+  color: var(--text-sub);
+  line-height: 1.6;
+}
+
+.info-text strong {
+  color: var(--text-main);
+}
+
+/* --- 溫潤按鈕 Buttons --- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 22px;
+  border-radius: 30px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.btn-green {
+  background-color: var(--accent-green);
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(124, 141, 124, 0.25);
+}
+
+.btn-green:hover {
+  background-color: var(--accent-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(124, 141, 124, 0.35);
+}
+
+.btn-outline {
+  background-color: #ffffff;
+  color: var(--accent-green);
+  border: 1px solid var(--accent-green);
+}
+
+.btn-outline:hover {
+  background-color: var(--accent-green-light);
+  transform: translateY(-2px);
+}
+
+/* --- 頁尾 Footer --- */
+footer {
+  margin-top: 50px;
+  text-align: center;
+  color: var(--text-sub);
+  font-size: 0.85rem;
+  padding-top: 30px;
+  border-top: 1px solid var(--border-color);
+}
+
+footer .school-title {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 1.05rem;
+  color: var(--text-main);
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+footer p {
+  margin: 4px 0;
+  color: var(--text-sub);
+}
+
+.copyright {
+  margin-top: 20px;
+  font-size: 0.75rem;
+  color: var(--text-light);
+}
+
+/* --- RWD 響應式調整 --- */
+@media (max-width: 640px) {
+  .card {
+    padding: 28px 20px;
+  }
+
+  .info-box {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .course-left {
+    gap: 10px;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="top-decorative-bar"></div>
+
+<header>
+  <div class="container">
+    <div class="header-tag">教師自主進修專區</div>
+    <h1>數位教學研習資訊</h1>
+    <p>新北市新莊區榮富國民小學 · 資訊中心</p>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- 快速導覽按鈕 -->
+  <nav class="nav-pills">
+    <a href="#ai-plan" class="nav-pill">AI 人才方舟</a>
+    <a href="#moocs-courses" class="nav-pill">磨課師線上課程</a>
+    <a href="#estudy-courses" class="nav-pill">新北數位影音網</a>
+  </nav>
+
+  <!-- 區塊一：AI人才方舟計畫 -->
+  <section id="ai-plan" class="card">
+    <div class="card-title-group">
+      <div class="card-title-icon">
+        <i class="fa-solid fa-seedling"></i>
+      </div>
+      <div class="card-title">教育部「AI人才方舟計畫」</div>
+    </div>
+    
+    <p style="color: var(--text-sub); font-size: 0.95rem; margin-bottom: 20px;">
+      為配合教育部數位教學推動，請全校教師協助完成以下研習課程。
+    </p>
+
+    <div class="info-box">
+      <div class="info-text">
+        <strong><i class="fa-regular fa-id-card" style="margin-right: 6px;"></i>個人研習進度查詢</strong><br>
+        研習狀態每學期定期更新，如有問題請洽資訊組。
+      </div>
+      <a href="https://sites.google.com/apps.ntpc.edu.tw/check" target="_blank" class="btn btn-outline">
+        查詢研習狀態 <i class="fa-solid fa-arrow-up-right-from-square"></i>
+      </a>
+    </div>
+  </section>
+
+  <!-- 區塊二：磨課師線上課程 -->
+  <section id="moocs-courses" class="card">
+    <div class="card-title-group">
+      <div class="card-title-icon">
+        <i class="fa-solid fa-book-open"></i>
+      </div>
+      <div class="card-title">「磨課師」線上課程</div>
+    </div>
+
+    <div class="course-list">
+      <a href="https://moocs.moe.edu.tw/moocs/#/course/detail/10003230" target="_blank" class="course-item">
+        <div class="course-left">
+          <span class="course-badge">1</span>
+          <span class="course-name">A1 數位學習工作坊 (一)</span>
+        </div>
+        <i class="fa-solid fa-chevron-right course-arrow"></i>
+      </a>
+
+      <a href="https://moocs.moe.edu.tw/moocs/#/course/detail/10003231" target="_blank" class="course-item">
+        <div class="course-left">
+          <span class="course-badge">2</span>
+          <span class="course-name">A2 數位學習工作坊 (二)</span>
+        </div>
+        <i class="fa-solid fa-chevron-right course-arrow"></i>
+      </a>
+
+      <a href="https://moocs.moe.edu.tw/moocs/#/course/detail/10002252" target="_blank" class="course-item">
+        <div class="course-left">
+          <span class="course-badge">3</span>
+          <span class="course-name">A3 數位素養增能研習</span>
+        </div>
+        <i class="fa-solid fa-chevron-right course-arrow"></i>
+      </a>
+
+      <a href="https://moocs.moe.edu.tw/moocs/#/course/detail/10003217" target="_blank" class="course-item">
+        <div class="course-left">
+          <span class="course-badge">4</span>
+          <span class="course-name">B5-1 生成式 AI 與教育應用工作坊 (國中小)</span>
+        </div>
+        <i class="fa-solid fa-chevron-right course-arrow"></i>
+      </a>
+    </div>
+
+    <div class="info-box">
+      <div class="info-text">
+        <strong><i class="fa-regular fa-pen-to-square" style="margin-right: 6px;"></i>時數登錄表單</strong><br>
+        完成以上 1~4 項研習後，請填寫表單由資訊組登錄至校務系統。
+      </div>
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLSe9rh2PveodQ1ihHCoLswwXroqT_6dHw__m96o1hk8ozivHvQ/viewform" target="_blank" class="btn btn-green">
+        填寫回報表單 <i class="fa-solid fa-paper-plane"></i>
+      </a>
+    </div>
+  </section>
+
+  <!-- 區塊三：新北數位學習影音網 -->
+  <section id="estudy-courses" class="card">
+    <div class="card-title-group">
+      <div class="card-title-icon">
+        <i class="fa-solid fa-circle-play"></i>
+      </div>
+      <div class="card-title">新北數位學習影音網</div>
+    </div>
+
+    <div class="course-list">
+      <a href="https://estudy.ntpc.edu.tw/Page/Course/CourseDetail.aspx?CourseID=0000000407" target="_blank" class="course-item">
+        <div class="course-left">
+          <span class="course-badge">5</span>
+          <span class="course-name">邁向 2030 的未來教室：新北智慧學習發展</span>
+        </div>
+        <i class="fa-solid fa-chevron-right course-arrow"></i>
+      </a>
+    </div>
+
+    <div class="info-box info-box-warm">
+      <div class="info-text" style="color: #8c5d4b;">
+        <strong><i class="fa-solid fa-circle-check" style="margin-right: 6px; color: var(--accent-warm);"></i>系統自動匯入說明</strong><br>
+        完成此項研習後，時數將由系統<strong>自動匯入</strong>校務行政系統，不需額外填寫回報表單。
+      </div>
+    </div>
+  </section>
+
+  <!-- 頁尾Footer -->
+  <footer>
+    <div class="school-title">新北市新莊區榮富國民小學</div>
+    <p>Rongfu Elementary School, Xinzhuang District, New Taipei City</p>
+    <p>資訊中心 Information Technology Center · (02) 2276-9020 分機 814</p>
+    <p>地址：242058 新北市新莊區中和街 193 號</p>
+    <div class="copyright">Copyright &copy; 2026 RongFu Elementary School. All Rights Reserved.</div>
+  </footer>
+
+</div>
+
+<script>
+// 頁面動態滾動淡入 (Smooth Scroll Fade-in)
+document.addEventListener("DOMContentLoaded", () => {
+  const cards = document.querySelectorAll('.card');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, index) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+        }, index * 120);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.1,
+    rootMargin: "0px 0px -30px 0px"
+  });
+
+  cards.forEach(card => {
+    observer.observe(card);
+  });
+});
+</script>
+</body>
+</html>
